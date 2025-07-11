@@ -3,10 +3,8 @@ const mongoose = require("mongoose");
 const index = express();
 
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/todolistDB", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+mongoose.connect("your-connection-string");
+
 
 // Schema and Model
 const taskSchema = new mongoose.Schema({
