@@ -1,62 +1,49 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const index = express();
+const app = express();
 
-// Connect to MongoDB
-mongoose.connect("your-connection-string");
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
+// In-memory task array
+let tasks = []; // Format: { id, text }
 
-// Schema and Model
-const taskSchema = new mongoose.Schema({
-    text: String,
-    priority: String,
+app.get("/", (req, res) => {
+  res.render("list", { ejes: tasks });
 });
 
-const Task = mongoose.model("Task", taskSchema);
-
-// Set EJS as templating engine
-index.set("view engine", "ejs");
-
-// Middleware
-index.use(express.static('public'));
-index.use(express.urlencoded({ extended: true }));
-
-// GET - Homepage
-index.get("/", async (req, res) => {
-    const filter = req.query.priority || "All";
-    let tasks = await Task.find();
-
-    if (filter !== "All") {
-        tasks = tasks.filter(task => task.priority === filter);
-    }
-
-    res.render("list", { ejes: tasks, filter });
+app.post("/", (req, res) => {
+  const text = req.body.hey.trim();
+  if (text !== "") {
+    const newTask = {
+      id: Date.now().toString(),
+      text
+    };
+    tasks.push(newTask);
+  }
+  res.redirect("/");
 });
 
-// POST - Add Task
-index.post("/", async (req, res) => {
-    const text = req.body.hey.trim();
-    const priority = req.body.priority || "Low";
-
-    if (text !== "") {
-        await Task.create({ text, priority });
-    }
-    res.redirect("/");
+app.post("/delete/:id", (req, res) => {
+  const id = req.params.id;
+  tasks = tasks.filter(task => task.id !== id);
+  res.redirect("/");
 });
 
-// POST - Delete Task
-index.post("/delete/:id", async (req, res) => {
-    await Task.findByIdAndDelete(req.params.id);
-    res.redirect("/");
+app.post("/edit/:id", (req, res) => {
+  const id = req.params.id;
+  const updatedText = req.body.updatedText.trim();
+  if (updatedText) {
+    tasks = tasks.map(task => {
+      if (task.id === id) {
+        return { ...task, text: updatedText };
+      }
+      return task;
+    });
+  }
+  res.redirect("/");
 });
 
-// POST - Edit Task
-index.post("/edit/:id", async (req, res) => {
-    await Task.findByIdAndUpdate(req.params.id, { text: req.body.updatedText });
-    res.redirect("/");
-});
-
-// Start server
-index.listen(8000, function () {
-    console.log("✅ Server started on http://localhost:8000");
+app.listen(8000, () => {
+  console.log("✅ Server started on http://localhost:8000");
 });
