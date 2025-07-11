@@ -22,13 +22,13 @@
               <span><%= item.text %></span>
 
               <!-- Edit Task -->
-              <form action="/edit/<%= item._id %>" method="POST" style="display: inline;">
+              <form action="/edit/<%= item.id %>" method="POST" style="display: inline;">
                 <input type="text" name="updatedText" placeholder="Edit task" required>
                 <button type="submit">✏️</button>
               </form>
 
               <!-- Delete Task -->
-              <form action="/delete/<%= item._id %>" method="POST" style="display: inline;">
+              <form action="/delete/<%= item.id %>" method="POST" style="display: inline;">
                 <button type="submit">🗑️</button>
               </form>
             </div>
@@ -37,7 +37,7 @@
       </div>
 
       <!-- Add Task -->
-      <form method="post" action="/" class="add-task">
+      <form method="POST" action="/" class="add-task">
         <input type="text" name="hey" placeholder="Enter the task" required />
         <button type="submit">+</button>
       </form>
