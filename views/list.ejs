@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Todo List</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="box">
+      <h1>Todo List</h1>
+
+      <!-- Task List -->
+      <div class="task-list">
+        <% if (ejes.length === 0) { %>
+          <p>No tasks yet.</p>
+        <% } else { %>
+          <% ejes.forEach(item => { %>
+            <div class="task-item">
+              <input type="checkbox" class="task-check" onchange="this.nextElementSibling.classList.toggle('checked')" />
+              <span><%= item.text %></span>
+
+              <!-- Edit Task -->
+              <form action="/edit/<%= item._id %>" method="POST" style="display: inline;">
+                <input type="text" name="updatedText" placeholder="Edit task" required>
+                <button type="submit">✏️</button>
+              </form>
+
+              <!-- Delete Task -->
+              <form action="/delete/<%= item._id %>" method="POST" style="display: inline;">
+                <button type="submit">🗑️</button>
+              </form>
+            </div>
+          <% }) %>
+        <% } %>
+      </div>
+
+      <!-- Add Task -->
+      <form method="post" action="/" class="add-task">
+        <input type="text" name="hey" placeholder="Enter the task" required />
+        <button type="submit">+</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

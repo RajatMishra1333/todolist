@@ -1,0 +1,158 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(120deg, #b3adfd 50%, #b8d7f7 50%);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 15px;
+}
+
+.box {
+  background: #ffffff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+h1 {
+  font-size: 2rem;
+  text-align: center;
+  color: #2f3542;
+  margin-bottom: 20px;
+}
+
+.task-list {
+  margin-bottom: 20px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  background: #dff9fb;
+  padding: 10px 15px;
+  margin: 8px 0;
+  border-radius: 8px;
+  gap: 10px;
+}
+
+.task-item input[type="checkbox"] {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.task-item span {
+  flex: 1 1 auto;
+  font-size: 1rem;
+  color: #2f3542;
+  transition: all 0.2s ease;
+}
+
+.task-item span.checked {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.task-item form {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.task-item input[type="text"] {
+  padding: 6px 10px;
+  border: 1px solid #ced6e0;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  width: 120px;
+  outline: none;
+}
+
+.task-item button {
+  background: transparent;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.task-item button:hover {
+  background: #5c5a64;
+}
+
+.task-item form:last-child button {
+  background: #ffffff;
+}
+
+.task-item form:last-child button:hover {
+  background: #b9b9b9;
+}
+
+.add-task {
+  display: flex;
+  gap: 10px;
+}
+
+.add-task input[type="text"] {
+  flex: 1;
+  padding: 10px 15px;
+  border: 2px solid #ced6e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.add-task button {
+  background: #6c5ce7;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  padding: 0 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-task button:hover {
+  background: #341f97;
+}
+
+
+@media (max-width: 480px) {
+  .box {
+    padding: 20px;
+  }
+
+  .task-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .task-item form {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .task-item input[type="text"] {
+    width: 100%;
+  }
+}
