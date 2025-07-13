@@ -1,0 +1,43 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Todo List</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="box">
+      <h1>Todo List</h1>
+
+      <div class="task-list">
+        <% if (tasks.length === 0) { %>
+          <p>No tasks yet.</p>
+        <% } else { %>
+          <% tasks.forEach(item => { %>
+            <div class="task-item">
+              <input type="checkbox" onchange="this.nextElementSibling.classList.toggle('checked')">
+              <span><%= item.text %></span>
+
+              <form action="/tasks/<%= item.id %>?_method=PUT" method="POST" style="display:inline;">
+                <input type="text" name="updatedText" placeholder="Edit task" required>
+                <button type="submit">✏️</button>
+              </form>
+
+              <form action="/tasks/<%= item.id %>?_method=DELETE" method="POST" style="display:inline;">
+                <button type="submit">🗑️</button>
+              </form>
+            </div>
+          <% }) %>
+        <% } %>
+      </div>
+
+      <form method="POST" action="/" class="add-task">
+        <input type="text" name="taskName" placeholder="Enter the task" required />
+        <button type="submit">+</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
